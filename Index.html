@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lugares de Florencia</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet.draw CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+    <!-- Drawer similar a Google Maps -->
+    <button id="drawerToggle" class="drawer-toggle" aria-label="Abrir panel">☰</button>
+
+    <aside id="drawer" class="drawer" aria-hidden="true">
+        <header class="drawer-header">
+            <h2>Lugares</h2>
+            <button id="drawerClose" class="drawer-close" aria-label="Cerrar panel">✕</button>
+        </header>
+        <div class="drawer-content">
+            <!-- Contenido dinámico: filtros, lista, detalles -->
+            <div id="drawerFilters">
+                <label>Ciudad: <input id="filterCity" type="text" placeholder="Ciudad"></label>
+                <label>Tipo: <input id="filterType" type="text" placeholder="Tipo"></label>
+                <button id="applyFilters">Aplicar</button>
+            </div>
+            <div id="drawerList">
+                <!-- Lista de lugares cargada por JS -->
+            </div>
+        </div>
+    </aside>
+
+    <div id="map"></div>
+    
+    <!-- Librerías -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="js/Script.js"></script>
+</body>
+</html>
