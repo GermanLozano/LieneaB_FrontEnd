@@ -1,0 +1,38 @@
+.buffer-btn {
+    position: fixed;
+    top: 23px;
+    left: 40%;
+    z-index: 1000;
+}
+
+#buffer-btn.buffer-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background:  rgba(255, 255, 255, 0.95);
+    border: none;
+    box-shadow: 0 2px 6px rgba(60, 64, 67, .15);
+    border-radius: 24px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 15px;
+    color: #3c4043;
+    transition: box-shadow 0.2s;
+}
+
+#buffer-btn.buffer-btn:hover,
+#buffer-btn.buffer-btn:focus {
+    box-shadow: 0 4px 12px rgba(60, 64, 67, .25);
+    background: #fff;
+}
+
+#buffer-btn .buffer-label {
+    font-weight: 500;
+    letter-spacing: .01em;
+}
+
+#buffer-btn svg {
+    color: black;
+    flex-shrink: 0;
+}

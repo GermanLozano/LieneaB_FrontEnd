@@ -1,0 +1,110 @@
+/* Sidebar */
+#left-sidebar {
+  position: fixed;
+  top: 150px;
+  left: 12px;
+  width: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  padding: 8px;
+  transition: width 0.18s ease, padding 0.18s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+/* Cuando se expande */
+.sidebar.expanded {
+  width: auto;
+  padding: 12px;
+  align-items: center;
+}
+
+/* Toggle (hamburger) */
+.sidebar-toggle {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  gap: 8px;
+}
+
+/* Nav list */
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-item {
+  width: auto;
+}
+
+/* Button inside items */
+.btn-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: transparent;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #222;
+}
+
+.btn-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Label visible solo cuando hay espacio (expanded) */
+.label {
+  display: none;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.sidebar.expanded .label {
+  display: inline-block;
+}
+
+/* Thumbnail small */
+.thumb {
+  width: 40px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Style for small labels (e.g., place name) */
+.label.small {
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+/* Ajustes para mobile */
+@media (max-width: 640px) {
+  .sidebar {
+    left: 8px;
+    top: 8px;
+    width: 56px;
+  }
+
+  .sidebar.expanded {
+    width: 180px;
+  }
+}

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lugares de Florencia</title>
 
     <!-- Leaflet CSS -->
@@ -10,36 +11,203 @@
     <!-- Leaflet.draw CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
     <!-- Estilos CSS -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles_map.css" />
+    <link rel="stylesheet" href="css/styles_drawer.css" />
+    <link rel="stylesheet" href="css/styles_barra_busqueda.css" />
+    <link rel="stylesheet" href="css/styles_buffer.css" />
+    <link rel="stylesheet" href="css/styles_loging.css" />
+    <link rel="stylesheet" href="css/styles_usuarios.css" />
+    <link rel="stylesheet" href="css/styles_titulo.css" />
 </head>
+
 <body>
+    <div id="map">
 
-    <!-- Drawer similar a Google Maps -->
-    <button id="drawerToggle" class="drawer-toggle" aria-label="Abrir panel">☰</button>
+        <!-- ==================== TITULO SUPERIOR ==================== -->
+        <div class="page-title">
+            <h1>Lugares de alto riesgo e insidencias de Florencia</h1>
+        </div>
 
-    <aside id="drawer" class="drawer" aria-hidden="true">
-        <header class="drawer-header">
-            <h2>Lugares</h2>
-            <button id="drawerClose" class="drawer-close" aria-label="Cerrar panel">✕</button>
-        </header>
-        <div class="drawer-content">
-            <!-- Contenido dinámico: filtros, lista, detalles -->
-            <div id="drawerFilters">
-                <label>Ciudad: <input id="filterCity" type="text" placeholder="Ciudad"></label>
-                <label>Tipo: <input id="filterType" type="text" placeholder="Tipo"></label>
-                <button id="applyFilters">Aplicar</button>
-            </div>
-            <div id="drawerList">
-                <!-- Lista de lugares cargada por JS -->
+
+        <!-- ==================== LOGIN MODAL ==================== -->
+        <div id="loginModal" class="login-modal" aria-hidden="true">
+            <div class="login-content" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+                <h2 id="loginTitle">Iniciar sesión</h2>
+                <input type="email" id="email" placeholder="Correo electrónico" required />
+                <input type="password" id="password" placeholder="Contraseña" required />
+                <button id="btnLogin">Ingresar</button>
+                <p id="loginError" class="error-text" role="alert"></p>
             </div>
         </div>
-    </aside>
 
-    <div id="map"></div>
+        <!-- Barra de búsqueda estilo Google Maps -->
+        <div class="search-bar-container">
+            <form id="search-form" autocomplete="off">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Buscar lugares..." aria-label="Buscar lugares" />
+                    <button type="submit" class="search-btn" aria-label="Buscar">
+                        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" fill="none" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
     
-    <!-- Librerías -->
+        <!-- Sidebar lateral -->
+        <aside id="left-sidebar" class="sidebar collapsed" aria-label="Menú lateral">
+            <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Abrir menú">
+                <!-- ícono hamburger -->
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <span class="label ">Analisis Geo </span>
+            </button>
+
+            <nav class="sidebar-nav" role="navigation">
+                <ul>
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="legend" title="Leyendas">
+                            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                <path d="M9 3L15 5L21 3V17L15 19L9 17L3 19V5L9 3Z" stroke="currentColor"
+                                    stroke-width="2" fill="none" stroke-linejoin="round" />
+                            </svg>
+                            <span class="label">Leyendas</span>
+                        </button>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="filter" title="Filtros">
+                            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                <path d="M2 4l8 8v8l4-2v-6l8-8H2z" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <span class="label">Filtros</span>
+                        </button>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="filter" title="Buffer">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" />
+                                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" fill="none"
+                                    opacity="0.6" />
+                                <circle cx="12" cy="12" r="2" fill="currentColor" />
+                            </svg>
+
+                            <span class="label">Buffer</span>
+                        </button>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="centroid" title="Centroides">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <polygon points="4,18 12,4 20,18" stroke="currentColor" stroke-width="2" fill="none" />
+                                <circle cx="12" cy="13" r="2" fill="currentColor" />
+                            </svg>
+                            <span class="label">Centroides</span>
+                        </button>
+                    </li>
+
+
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="intersect" title="Intercepciones">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="9" cy="12" r="6" stroke="currentColor" stroke-width="2" fill="none" />
+                                <circle cx="15" cy="12" r="6" stroke="currentColor" stroke-width="2" fill="none" />
+                                <path d="M9 12a6 6 0 0 1 6 0" fill="currentColor" opacity="0.3" />
+                            </svg>
+                            <span class="label">Intercepciones</span>
+                        </button>
+                    </li>
+
+
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="route" title="Calcular Ruta">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M5 19l4-4-4-4" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M9 15h4a4 4 0 0 0 0-8H7" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" />
+                                <circle cx="5" cy="15" r="1.5" fill="currentColor" />
+                                <circle cx="17" cy="11" r="1.5" fill="currentColor" />
+                            </svg>
+                            <span class="label">Calcular Ruta</span>
+                        </button>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <button class="btn-item" data-action="users" title="Usuarios">
+                            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2" fill="none" />
+                                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" fill="none"
+                                    stroke-linecap="round" />
+                            </svg>
+                            <span class="label">Usuarios</span>
+                        </button>
+                    </li>
+
+
+
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- ==================== USER AVATAR / LOGIN BUTTON (top-right) ==================== -->
+        <!-- Este widget está pensado para ser posicionado via CSS (fixed / absolute) en la esquina superior derecha -->
+        <div id="user-widget" class="user-widget" aria-live="polite" role="region" aria-label="Cuenta de usuario">
+            <!-- Botón que abre el menú (mostrará la inicial o icono) -->
+            <button id="user-btn" class="user-btn" aria-expanded="false" aria-haspopup="true" title="Cuenta">
+                <span id="user-initial" class="user-initial" aria-hidden="true">U</span>
+            </button>
+
+            <!-- Menú desplegable: email arriba, avatar en el medio, nombre+rol centrados -->
+            <div id="user-menu" class="user-menu" role="menu" aria-hidden="true">
+                <!-- correo en la parte superior, estilo Google Maps -->
+                <div class="user-email-wrap">
+                    <div id="user-email" class="user-email">invitado@example.com</div>
+                </div>
+
+                <!-- avatar centrado (aquí pondremos la inicial o un SVG) -->
+                <div class="user-avatar-wrap" aria-hidden="true">
+                    <div id="user-avatar" class="user-avatar">U</div>
+                </div>
+
+                <!-- nombre y rol centrados -->
+                <div class="user-info" role="none">
+                    <div id="user-name" class="user-name">Invitado</div>
+                    <div id="user-role" class="user-role">No autenticado</div>
+                </div>
+
+                <hr />
+
+                <!-- acciones: si no hay sesión muestra iniciar, si hay sesión muestra cerrar -->
+                <div class="user-actions" role="none">
+                    <button id="btn-open-login" class="menu-btn">Iniciar sesión</button>
+                    <button id="btn-logout" class="menu-btn danger" style="display:none;">Cerrar sesión</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Librerías externas -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-    <script src="js/Script.js"></script>
+
+    <!-- Autenticación (verifica sesión antes de cargar el mapa) -->
+    <script src="js/auth.js"></script>
+
+    <!-- Scripts dependientes del mapa y la sesión -->
+    <script src="js/menu_drawer.js"></script>
+    <script src="js/usuarios.js"></script>
+    <script src="js/capas.js"></script>
+    <script src="js/herramientas_dibujo.js"></script>
+    <script src="js/buffer.js"></script>
+
 </body>
+
 </html>

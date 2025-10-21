@@ -1,0 +1,178 @@
+/* auth_ui.css - estilos para el avatar / menú de usuario (ajustado) */
+
+.user-widget {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1400; /* por encima del mapa y controles */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* botón redondo estilo avatar */
+.user-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  background: rgb(92, 107, 192);
+  color: rgb(251, 251, 254);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  padding: 0;
+}
+
+/* inicial o icono dentro del avatar */
+.user-initial {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  user-select: none;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+/* menú desplegable */
+.user-menu {
+  position: absolute;
+  top: 66px;       /* separado del botón */
+  right: 0;
+  min-width: 240px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.16);
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  color: #222;
+  align-items: center;    /* centro verticalmente los elementos (email, avatar, texto) */
+  text-align: center;     /* textos centrados */
+  transform-origin: top right;
+  /* opcional: animación sutil */
+  transition: transform 120ms ease, opacity 120ms ease;
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+/* visible */
+.user-menu.open {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* correo en la parte superior (más pequeño, discreto) */
+.user-email-wrap {
+  width: 100%;
+  padding: 2px 6px 0 6px;
+}
+.user-email {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+/* avatar centrado (aquí la inicial o icono SVG) */
+.user-avatar-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 6px 0;
+}
+.user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #5c6bc0 0%, #3f51b5 100%);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 24px;
+  box-shadow: 0 6px 16px rgba(63,81,181,0.18);
+  user-select: none;
+}
+
+/* nombre y rol centrados y compactos */
+.user-info {
+  padding: 0 6px;
+  width: 100%;
+}
+.user-name {
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 6px;
+  margin-bottom: 2px;
+  color: #111;
+}
+.user-role {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+/* separador */
+.user-menu hr {
+  width: calc(100% - 16px);
+  border: none;
+  height: 1px;
+  background: #eee;
+  margin: 6px 0;
+  border-radius: 1px;
+}
+
+/* acciones */
+.user-actions {
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 6px 6px 6px;
+  width: 100%;
+}
+.menu-btn {
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  box-sizing: border-box;
+}
+.menu-btn:hover { background:#f5f7fb; }
+.menu-btn.danger {
+  background: #ff3b30;
+  color: #fff;
+  border-color: #ff3b30;
+}
+.menu-btn.danger:hover { opacity: 0.95; }
+
+/* Focus/Accesibilidad */
+.user-btn:focus,
+.menu-btn:focus {
+  outline: 3px solid rgba(90,100,200,0.18);
+  outline-offset: 2px;
+}
+
+/* Ajustes responsive */
+@media (max-width: 600px) {
+  .user-btn { width:44px; height:44px; }
+  .user-initial { font-size: 14px; }
+  .user-avatar { width:52px; height:52px; font-size:20px; }
+  .user-menu { right: 6px; top: 56px; min-width: 200px; }
+  .user-email { font-size: 11px; }
+}
+
+/* Si quieres que el menú "empuje" menos el mapa (opcional) */
+.user-widget { pointer-events: auto; }
