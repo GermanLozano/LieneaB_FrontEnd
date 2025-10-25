@@ -4,14 +4,15 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 1400; /* por encima del mapa y controles */
+  z-index: 1400;
+  /* por encima del mapa y controles */
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
 /* botón redondo estilo avatar */
 .user-btn {
-  width: 55px;
-  height: 55px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: none;
   background: rgb(92, 107, 192);
@@ -26,7 +27,7 @@
 
 /* inicial o icono dentro del avatar */
 .user-initial {
-  font-weight: 600;
+  font-weight: 600px;
   font-size: 16px;
   line-height: 1;
   user-select: none;
@@ -37,19 +38,22 @@
 /* menú desplegable */
 .user-menu {
   position: absolute;
-  top: 66px;       /* separado del botón */
+  top: 66px;
+  /* separado del botón */
   right: 0;
   min-width: 240px;
   background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.16);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
   padding: 10px;
   display: none;
   flex-direction: column;
   gap: 10px;
   color: #222;
-  align-items: center;    /* centro verticalmente los elementos (email, avatar, texto) */
-  text-align: center;     /* textos centrados */
+  align-items: center;
+  /* centro verticalmente los elementos (email, avatar, texto) */
+  text-align: center;
+  /* textos centrados */
   transform-origin: top right;
   /* opcional: animación sutil */
   transition: transform 120ms ease, opacity 120ms ease;
@@ -69,6 +73,7 @@
   width: 100%;
   padding: 2px 6px 0 6px;
 }
+
 .user-email {
   font-size: 12px;
   color: #666;
@@ -88,6 +93,7 @@
   width: 100%;
   padding: 6px 0;
 }
+
 .user-avatar {
   width: 64px;
   height: 64px;
@@ -99,7 +105,7 @@
   justify-content: center;
   font-weight: 700;
   font-size: 24px;
-  box-shadow: 0 6px 16px rgba(63,81,181,0.18);
+  box-shadow: 0 6px 16px rgba(63, 81, 181, 0.18);
   user-select: none;
 }
 
@@ -108,6 +114,7 @@
   padding: 0 6px;
   width: 100%;
 }
+
 .user-name {
   font-weight: 700;
   font-size: 14px;
@@ -115,6 +122,7 @@
   margin-bottom: 2px;
   color: #111;
 }
+
 .user-role {
   font-size: 12px;
   color: #666;
@@ -133,12 +141,13 @@
 
 /* acciones */
 .user-actions {
-  display:flex;
+  display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 0 6px 6px 6px;
   width: 100%;
 }
+
 .menu-btn {
   width: 100%;
   border: 1px solid #e6e6e6;
@@ -150,29 +159,57 @@
   text-align: center;
   box-sizing: border-box;
 }
-.menu-btn:hover { background:#f5f7fb; }
+
+.menu-btn:hover {
+  background: #f5f7fb;
+}
+
 .menu-btn.danger {
   background: #ff3b30;
   color: #fff;
   border-color: #ff3b30;
 }
-.menu-btn.danger:hover { opacity: 0.95; }
+
+.menu-btn.danger:hover {
+  opacity: 0.95;
+}
 
 /* Focus/Accesibilidad */
 .user-btn:focus,
 .menu-btn:focus {
-  outline: 3px solid rgba(90,100,200,0.18);
+  outline: 3px solid rgba(90, 100, 200, 0.18);
   outline-offset: 2px;
 }
 
 /* Ajustes responsive */
 @media (max-width: 600px) {
-  .user-btn { width:44px; height:44px; }
-  .user-initial { font-size: 14px; }
-  .user-avatar { width:52px; height:52px; font-size:20px; }
-  .user-menu { right: 6px; top: 56px; min-width: 200px; }
-  .user-email { font-size: 11px; }
+  .user-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .user-initial {
+    font-size: 14px;
+  }
+
+  .user-avatar {
+    width: 52px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+  .user-menu {
+    right: 6px;
+    top: 56px;
+    min-width: 200px;
+  }
+
+  .user-email {
+    font-size: 11px;
+  }
 }
 
 /* Si quieres que el menú "empuje" menos el mapa (opcional) */
-.user-widget { pointer-events: auto; }
+.user-widget {
+  pointer-events: auto;
+}

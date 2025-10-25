@@ -1,0 +1,134 @@
+/* styles_filtros.css - estilos del panel de filtros (similar a legend-panel) */
+
+.filters-panel {
+  position: fixed;
+  left: 166px; /* justo a la derecha del drawer principal */
+  top: auto;
+  width: 280px;
+  max-height: 70vh;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  z-index: 2000;
+  display: none; /* se muestra al activar JS */
+}
+
+/* visible cuando aria-hidden es false */
+.filters-panel[aria-hidden="false"] {
+  display: block;
+}
+
+/* HEADER */
+.filters-panel header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.filters-panel h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+#filters-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+}
+
+/* CUERPO */
+.filters-body {
+  padding: 8px 4px;
+}
+
+/* FILAS DE FILTRO */
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.filter-row label {
+  font-size: 13px;
+  color: #333;
+}
+
+.filter-row select {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 13px;
+  color: #222;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.filter-row select:focus {
+  border-color: #0078d4;
+  outline: none;
+}
+
+/* ACCIONES */
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #eee;
+}
+
+.btn-small {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-small:hover {
+  background: #f3f3f3;
+}
+
+#filter-apply {
+  background: #1f6feb;
+  color: white;
+  border: 1px solid #1f6feb;
+}
+
+#filter-apply:hover {
+  background: #155fc1;
+}
+
+#filter-reset {
+  color: #333;
+  background: #fff;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 600px) {
+  .filters-panel {
+    left: 0;
+    top: 60px;
+    width: 95%;
+    max-height: 80vh;
+    border-radius: 6px;
+  }
+}
+
+

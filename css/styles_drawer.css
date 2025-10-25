@@ -1,7 +1,7 @@
 /* Sidebar */
 #left-sidebar {
   position: fixed;
-  top: 150px;
+  top: 90px;
   left: 12px;
   width: auto;
   background: rgba(255, 255, 255, 0.95);

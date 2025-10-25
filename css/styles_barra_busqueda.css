@@ -1,7 +1,7 @@
 .search-bar-container {
     position: fixed;
-    top: 20px;
-    left: 54%;
+    top: 10px;
+    left: 45%;
     transform: translateX(-50%);
     z-index: 1001;
     width: 400px;

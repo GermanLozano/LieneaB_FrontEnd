@@ -3,7 +3,7 @@
 
 .page-title {
   position: fixed;
-  top: 20px;
+  top: 10px;
   left: 80px;
   z-index: 1300; /* por encima del mapa pero debajo del avatar */
   background: rgba(255, 255, 255, 0.95);

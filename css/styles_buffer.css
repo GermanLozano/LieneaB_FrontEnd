@@ -1,38 +1,165 @@
-.buffer-btn {
-    position: fixed;
-    top: 23px;
-    left: 40%;
-    z-index: 1000;
+
+#bufferPanel {
+  position: fixed;
+  left: 166px;
+  top: 90px;
+  width: 300px;
+  max-height: 70vh;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  z-index: 2500;
+  display: block;
+  transition: transform .18s ease, opacity .18s ease;
+  transform: translateX(-8px);
+  opacity: 0;
 }
 
-#buffer-btn.buffer-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background:  rgba(255, 255, 255, 0.95);
-    border: none;
-    box-shadow: 0 2px 6px rgba(60, 64, 67, .15);
-    border-radius: 24px;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 15px;
-    color: #3c4043;
-    transition: box-shadow 0.2s;
+/* Visible state */
+#bufferPanel.open,
+#bufferPanel[aria-hidden="false"] {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-#buffer-btn.buffer-btn:hover,
-#buffer-btn.buffer-btn:focus {
-    box-shadow: 0 4px 12px rgba(60, 64, 67, .25);
-    background: #fff;
+/* Header */
+#bufferPanel header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #eee;
 }
 
-#buffer-btn .buffer-label {
-    font-weight: 500;
-    letter-spacing: .01em;
+#bufferPanel header h3 {
+  margin: 0;
+  font-size: 16px;
 }
 
-#buffer-btn svg {
-    color: black;
-    flex-shrink: 0;
+#buffer-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
 }
+
+/* Body */
+#bufferPanel .buffer-body {
+  padding: 8px 2px;
+}
+
+#bufferPanel .buffer-body label {
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+#bufferPanel input[type="number"],
+#bufferPanel input[type="text"],
+
+#bufferPanel select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  font-size: 14px;
+}
+
+/* -------------------------
+   BOTONES (AHORA IGUALES A filters)
+   ------------------------- */
+
+/* Base btn-small (coincide con styles_filtros.css) */
+#bufferPanel .btn-small {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Hover base */
+#bufferPanel .btn-small:hover {
+  background: #f3f3f3;
+}
+
+/* Botón "Activar" (idéntico a #filter-apply) */
+/* usamos !important para garantizar que este estilo no sea sobrescrito por reglas globales */
+#buffer-activate {
+  background: #1f6feb !important;
+  color: #ffffff !important;
+  border: 1px solid #1f6feb !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+#buffer-activate:hover {
+  background: #155fc1 !important;
+  border-color: #155fc1 !important;
+  color: #ffffff !important;
+}
+
+/* Botón "Reset" (idéntico a #filter-reset) */
+#buffer-reset {
+  color: #333333 !important;
+  background: #ffffff !important;
+  border: 1px solid #e6e6e6 !important;
+}
+
+#buffer-reset:hover {
+  background: #f3f3f3 !important;
+}
+
+/* Alineación de la fila de botones */
+#bufferPanel .btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* Info text */
+#bufferPanel .buffer-info {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+/* Popup inside buffer */
+.leaflet-popup-content .buffer-popup {
+  font-size: 13px;
+}
+
+/* Markers highlighted by buffer */
+.buffer-hit-marker {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+}
+
+/* Tooltip content for hits */
+.buffer-hit-popup { font-size: 13px; }
+
+/* Small responsive tweak */
+@media (max-width: 720px) {
+  #bufferPanel {
+    left: 12px;
+    width: calc(100% - 24px);
+    top: 70px;
+  }
+}
+
+
+/* H3 del panel buffer: mismo estilo que filtros */
+#bufferPanel header h3 {
+  font-weight: 600;
+  font-size: 16px;     /* ya lo tenías, lo reafirmamos */
+  color: #222;         /* mismo color del drawer/filtros */
+  margin: 0;
+}
+

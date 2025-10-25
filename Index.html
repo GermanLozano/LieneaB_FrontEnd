@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="css/styles_loging.css" />
     <link rel="stylesheet" href="css/styles_usuarios.css" />
     <link rel="stylesheet" href="css/styles_titulo.css" />
+    <link rel="stylesheet" href="css/Styles_leyendas.css" />
+    <link rel="stylesheet" href="css/Styles_filtros.css" />
 </head>
 
 <body>
@@ -25,9 +27,8 @@
 
         <!-- ==================== TITULO SUPERIOR ==================== -->
         <div class="page-title">
-            <h1>Lugares de alto riesgo e insidencias de Florencia</h1>
+            <h1>Sitios de Interes - Florencia</h1>
         </div>
-
 
         <!-- ==================== LOGIN MODAL ==================== -->
         <div id="loginModal" class="login-modal" aria-hidden="true">
@@ -56,7 +57,6 @@
             </form>
         </div>
 
-    
         <!-- Sidebar lateral -->
         <aside id="left-sidebar" class="sidebar collapsed" aria-label="Menú lateral">
             <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Abrir menú">
@@ -64,7 +64,7 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
-                <span class="label ">Analisis Geo </span>
+                <span class="label">Analisis Geo</span>
             </button>
 
             <nav class="sidebar-nav" role="navigation">
@@ -80,7 +80,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <button class="btn-item" data-action="filter" title="Filtros">
+                        <button id="open-filters-btn" class="btn-item" data-action="filter" title="Filtros">
                             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                                 <path d="M2 4l8 8v8l4-2v-6l8-8H2z" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linejoin="round" />
@@ -90,18 +90,18 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <button class="btn-item" data-action="filter" title="Buffer">
+                        <button id="open-buffer-btn" class="btn-item" data-action="buffer" title="Buffer">
                             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
                                 <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" />
                                 <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" fill="none"
                                     opacity="0.6" />
                                 <circle cx="12" cy="12" r="2" fill="currentColor" />
                             </svg>
-
                             <span class="label">Buffer</span>
                         </button>
                     </li>
 
+                    <!-- resto de items (centroides, intersecciones, rutas, usuarios...) -->
                     <li class="sidebar-item">
                         <button class="btn-item" data-action="centroid" title="Centroides">
                             <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
@@ -111,7 +111,6 @@
                             <span class="label">Centroides</span>
                         </button>
                     </li>
-
 
                     <li class="sidebar-item">
                         <button class="btn-item" data-action="intersect" title="Intercepciones">
@@ -123,7 +122,6 @@
                             <span class="label">Intercepciones</span>
                         </button>
                     </li>
-
 
                     <li class="sidebar-item">
                         <button class="btn-item" data-action="route" title="Calcular Ruta">
@@ -149,34 +147,124 @@
                             <span class="label">Usuarios</span>
                         </button>
                     </li>
-
-
-
                 </ul>
             </nav>
+
+            <!-- PANEL DE LEYENDA (oculto por defecto) -->
+            <div id="legendPanel" class="legend-panel" aria-hidden="true" >
+                <header class="legend-header">
+                    <strong>Leyenda - Lugares</strong>
+                    <button id="legend-close" aria-label="Cerrar leyenda">&times;</button>
+                </header>
+
+                <div class="legend-body">
+                    <section class="legend-section" id="legend-types">
+                        <h4>Por Tipo</h4>
+                        <div class="legend-items" data-kind="tipo"></div>
+                    </section>
+
+                    <section class="legend-section" id="legend-states">
+                        <h4>Por Estado</h4>
+                        <div class="legend-items" data-kind="estado"></div>
+                    </section>
+
+                    <section class="legend-section" id="legend-rating">
+                        <h4>Rating</h4>
+                        <div class="legend-items" data-kind="rating"></div>
+                    </section>
+                </div>
+
+                <footer class="legend-footer">
+                    <button id="legend-reset" class="btn-small">Restablecer filtros</button>
+                </footer>
+            </div>
+
+            <!-- PANEL DE FILTROS (drawer) - ahora aparece desde la IZQUIERDA -->
+            <div id="filtersPanel" class="filters-panel" aria-hidden="true">
+                <header>
+                    <h3>Filtros</h3>
+                    <button id="filters-close" aria-label="Cerrar filtros">&times;</button>
+                </header>
+
+                <div class="filters-body">
+                    <form id="filters-form">
+                        <div class="filter-row">
+                            <label for="filter-tipo">Tipo</label>
+                            <select id="filter-tipo">
+                                <option value=""> Todos </option>
+                                <!-- opciones dinámicas -->
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label for="filter-estado">Estado</label>
+                            <select id="filter-estado">
+                                <option value="">Todos</option>
+                                <!-- opciones dinámicas -->
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label for="filter-ciudad">Ciudad</label>
+                            <select id="filter-ciudad">
+                                <option value="">Todas</option>
+                                <!-- opciones dinámicas -->
+                            </select>
+                        </div>
+
+                        <div class="filter-actions" role="group" aria-label="Acciones de filtros">
+                            <button id="filter-reset" type="button" class="btn-small">Restablecer</button>
+                            <button id="filter-apply" type="submit" class="btn-small">Aplicar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- FIN panel filtros -->
+
+            <!-- PANEL DE BUFFER (nuevo) -->
+            <div id="bufferPanel" class="buffer-panel" aria-hidden="true">
+                <header>
+                    <h3>Buffer por clic</h3>
+                    <button id="buffer-close" aria-label="Cerrar buffer">&times;</button>
+                </header>
+
+                <div class="buffer-body">
+                    <form id="buffer-form">
+                        <div class="buffer-row">
+                            <label for="buffer-diameter">Diámetro (metros)</label>
+                            <input id="buffer-diameter" type="number" min="1" step="1" placeholder="Ej: 200" required />
+                        </div>
+
+                        <div class="buffer-row">
+                            <small>Después de <strong>Activar</strong>, haga clic en el mapa para crear el buffer. </small>
+                        </div>
+
+                        <div class="buffer-actions" role="group" aria-label="Acciones buffer">
+                            <button id="buffer-reset" type="button" class="btn-small">Eliminar buffer</button>
+                            <button id="buffer-activate" type="button" class="btn-small">Activar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- FIN panel buffer -->
+
         </aside>
 
         <!-- ==================== USER AVATAR / LOGIN BUTTON (top-right) ==================== -->
-        <!-- Este widget está pensado para ser posicionado via CSS (fixed / absolute) en la esquina superior derecha -->
         <div id="user-widget" class="user-widget" aria-live="polite" role="region" aria-label="Cuenta de usuario">
-            <!-- Botón que abre el menú (mostrará la inicial o icono) -->
             <button id="user-btn" class="user-btn" aria-expanded="false" aria-haspopup="true" title="Cuenta">
                 <span id="user-initial" class="user-initial" aria-hidden="true">U</span>
             </button>
 
-            <!-- Menú desplegable: email arriba, avatar en el medio, nombre+rol centrados -->
             <div id="user-menu" class="user-menu" role="menu" aria-hidden="true">
-                <!-- correo en la parte superior, estilo Google Maps -->
                 <div class="user-email-wrap">
                     <div id="user-email" class="user-email">invitado@example.com</div>
                 </div>
 
-                <!-- avatar centrado (aquí pondremos la inicial o un SVG) -->
                 <div class="user-avatar-wrap" aria-hidden="true">
                     <div id="user-avatar" class="user-avatar">U</div>
                 </div>
 
-                <!-- nombre y rol centrados -->
                 <div class="user-info" role="none">
                     <div id="user-name" class="user-name">Invitado</div>
                     <div id="user-role" class="user-role">No autenticado</div>
@@ -184,7 +272,6 @@
 
                 <hr />
 
-                <!-- acciones: si no hay sesión muestra iniciar, si hay sesión muestra cerrar -->
                 <div class="user-actions" role="none">
                     <button id="btn-open-login" class="menu-btn">Iniciar sesión</button>
                     <button id="btn-logout" class="menu-btn danger" style="display:none;">Cerrar sesión</button>
@@ -197,6 +284,8 @@
     <!-- Librerías externas -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <!-- Turf para cálculos geoespaciales (buffer, booleanPointInPolygon) -->
+    <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
 
     <!-- Autenticación (verifica sesión antes de cargar el mapa) -->
     <script src="js/auth.js"></script>
@@ -206,7 +295,15 @@
     <script src="js/usuarios.js"></script>
     <script src="js/capas.js"></script>
     <script src="js/herramientas_dibujo.js"></script>
+
+    <!-- Nuevo script del buffer (UI + lógica de clic) -->
     <script src="js/buffer.js"></script>
+
+    <script src="js/buffer.js"></script>
+    <script src="js/leyendas.js"></script>
+
+    <!-- Nuevo: lógica y estilos para filtros (no interfiere con otros scripts) -->
+    <script src="js/filtros.js"></script>
 
 </body>
 

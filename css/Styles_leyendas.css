@@ -1,0 +1,118 @@
+/* styles_legend.css - estilos de la leyenda (drawer) */
+
+.legend-panel {
+  position: fixed;
+  left: 166px; /* dentro del drawer, ajusta si tu drawer tiene otro ancho */
+  top: auto;
+  width: 280px;
+  max-height: 70vh;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  z-index: 2000;
+  display: none; /* mostrado por JS */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.legend-panel[aria-hidden="false"] { display: block; }
+
+.legend-header {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+}
+
+.legend-header strong { font-size: 14px; }
+
+#legend-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+}
+
+.legend-body {
+  padding: 8px 4px;
+}
+
+.legend-section { margin-bottom: 10px; }
+.legend-section h4 {
+  margin: 4px 0 6px;
+  font-size: 13px;
+  color: #333;
+}
+
+.legend-items { display:flex; flex-direction: column; gap:6px; }
+
+/* item */
+.legend-item {
+  display:flex;
+  gap: 8px;
+  align-items:center;
+  padding:6px;
+  border-radius:6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.legend-item .swatch {
+  width:18px;
+  height:18px;
+  border-radius:4px;
+  flex: 0 0 18px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.08);
+}
+
+.legend-item .label {
+  font-size:13px;
+  color:#222;
+  flex:1;
+}
+
+.legend-item .count {
+  font-size:12px;
+  color:#666;
+}
+
+/* estado use pill */
+.legend-item.pill .swatch {
+  width:10px;
+  height:10px;
+  border-radius:50%;
+}
+
+.legend-item.inactive {
+  opacity: 0.35;
+  background: transparent;
+}
+
+/* rating boxes */
+.legend-rating .swatch {
+  border-radius:3px;
+}
+
+/* footer */
+.legend-footer {
+  padding:6px 4px;
+  border-top:1px solid #eee;
+  display:flex;
+  justify-content: flex-end;
+}
+
+.btn-small {
+  padding:6px 10px;
+  border-radius:6px;
+  border:1px solid #e6e6e6;
+  background:#fff;
+  cursor:pointer;
+  font-weight:600;
+}
+
+
